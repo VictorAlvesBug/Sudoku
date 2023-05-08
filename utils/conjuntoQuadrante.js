@@ -45,21 +45,17 @@ export default function createConjuntoQuadrante(indice) {
                       qtdeVezesValorEncontrado++;
                     }
                     else{
-                      // resolver problema dos 8 nos quadrantes da direita
                       const estaDentreValoresPossiveis = conjuntoPosicoes.possivelValor(possivelValor);
                       let conjuntosAdjacentesNaoPossuem = true;
 
                       for (let iLinAdj = 0; iLinAdj < 3; iLinAdj++) {
-                        for (let iColAdj = 0; iColAdj < 3; iColAdj++) {
-                          if((iLin === iLinAdj && iCol !== iColAdj)
-                            || (iLin !== iLinAdj && iCol === iColAdj)){
-                              const conjuntoAdjacente = conjuntoQuadrante.conjuntosPosicoes[iLinAdj][iColAdj];
+                          if(iLin !== iLinAdj){
+                            const conjuntoAdjacente = conjuntoQuadrante.conjuntosPosicoes[iLinAdj][iCol];
 
-                              if(conjuntoAdjacente.possivelValor(possivelValor)){
-                                conjuntosAdjacentesNaoPossuem = false;
-                              }
+                            if(conjuntoAdjacente.possivelValor(possivelValor)){
+                              conjuntosAdjacentesNaoPossuem = false;
                             }
-                        }
+                          }
                       }
                       
                       if(estaDentreValoresPossiveis 
