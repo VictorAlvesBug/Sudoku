@@ -1,0 +1,97 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.sudoku .linha{
+    display: flex;
+    flex-direction: row;
+}
+
+.sudoku .posicao{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.sudoku .posicao:nth-child(3n){
+    border-right: 3px solid #000;
+}
+
+.sudoku .posicao:nth-child(9n-8){
+    border-left: 3px solid #000;
+}
+
+.sudoku .linha:nth-child(3n) .posicao{
+    border-bottom: 3px solid #000;
+}
+
+.sudoku .linha:nth-child(9n-8) .posicao{
+    border-top: 3px solid #000;
+}
+
+.sudoku .posicao > .opcao{
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-family: 'Tahoma';
+}
+
+.sudoku .posicao > .opcao[data-valor="1"]{
+    color: hsl(calc(360 / 9 * 1), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="2"]{
+    color: hsl(calc(360 / 9 * 2), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="3"]{
+    color: hsl(calc(360 / 9 * 3), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="4"]{
+    color: hsl(calc(360 / 9 * 4), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="5"]{
+    color: hsl(calc(360 / 9 * 5), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="6"]{
+    color: hsl(calc(360 / 9 * 6), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="7"]{
+    color: hsl(calc(360 / 9 * 7), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="8"]{
+    color: hsl(calc(360 / 9 * 8), 100%, 50%);
+}
+
+.sudoku .posicao > .opcao[data-valor="9"]{
+    color: hsl(calc(360 / 9 * 9), 100%, 50%);
+}
+
+.sudoku .posicao > .valor-unico{
+    position: absolute;
+    font-size: 34px;
+    font-family: 'Tahoma';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
