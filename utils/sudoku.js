@@ -14,8 +14,8 @@ export default function createSudoku(strSudoku) {
   sudoku.linhasQuadrante = [];
   sudoku.colunasQuadrante = [];
   for (let i = 0; i < qtdeValores; i++) {
-    sudoku.linhas.push(createConjuntoPosicoes());
-    sudoku.colunas.push(createConjuntoPosicoes());
+    sudoku.linhas.push(createConjuntoPosicoes(`Linha #${(i+1)}`));
+    sudoku.colunas.push(createConjuntoPosicoes(`Coluna #${(i+1)}`));
     sudoku.linhasQuadrante.push(createConjuntoQuadrante());
     sudoku.colunasQuadrante.push(createConjuntoQuadrante());
   }
@@ -28,7 +28,7 @@ export default function createSudoku(strSudoku) {
       iColQuadrante < qtdeQuadrantes;
       iColQuadrante++
     ) {
-      sudoku.quadrantes[iLinQuadrante].push(createConjuntoPosicoes());
+      sudoku.quadrantes[iLinQuadrante].push(createConjuntoPosicoes(`Quadrante (${(iLinQuadrante+1)}, ${(iColQuadrante+1)})`));
     }
   }
 
@@ -86,19 +86,13 @@ export default function createSudoku(strSudoku) {
     sudoku.quadrantes.forEach((linhaQuadrante) =>
       linhaQuadrante.forEach((quadrante) => quadrante.limparPosicoes())
     );
-    
-    sudoku.linhasQuadrante.forEach((linhaQuadrante) => linhaQuadrante.limparPosicoes());
-    sudoku.colunasQuadrante.forEach((colunaQuadrante) => colunaQuadrante.limparPosicoes());
-    
-    sudoku.colunasQuadrante[2].conjuntosPosicoes.forEach(colunaConjuntoPosicoes => {
-        colunaConjuntoPosicoes.forEach(conjuntoPosicoes => {
-            conjuntoPosicoes.posicoes.forEach(posicao => {
-                if(posicao.estaResolvida()){
-                    console.log(posicao.retornarValorUnico())
-                }
-            })
-        });
-    });
+
+    sudoku.linhasQuadrante.forEach((linhaQuadrante) =>
+      linhaQuadrante.limparPosicoes()
+    );
+    sudoku.colunasQuadrante.forEach((colunaQuadrante) =>
+      colunaQuadrante.limparPosicoes()
+    );
 
   };
 

@@ -1,8 +1,7 @@
 export default function createPosicao(iColuna, iLinha, qtdeValores) {
   const posicao = {};
 
-  posicao.iColuna = iColuna;
-  posicao.iLinha = iLinha;
+  posicao.descricao = `Posição (${iColuna+1}, ${iLinha+1})`;
   posicao.qtdeValores = qtdeValores;
 
   posicao.possiveisValores = [];
