@@ -21,6 +21,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-content: space-between;
+    transition: background-color 100ms;
+    -webkit-transition: background-color 100ms;
+    -moz-transition: background-color 100ms;
+    -ms-transition: background-color 100ms;
+    -o-transition: background-color 100ms;
 }
 
 .sudoku .posicao:nth-child(3n){
@@ -94,4 +99,8 @@
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
+}
+
+.sudoku .posicao.hover {
+    background-color: #7caffd;
 }

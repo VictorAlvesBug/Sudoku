@@ -51,7 +51,7 @@ export default function createSudoku(strSudoku) {
       const indice = iLinha * qtdeValores + iColuna;
       if (strSudoku[indice].match(/^\d$/)) {
         const valorUnico = Number(strSudoku[indice]);
-        sudoku.posicoes[iLinha][iColuna].definirValorUnico(valorUnico);
+        sudoku.posicoes[iLinha][iColuna].definirValorInicial(valorUnico);
       }
     }
   }

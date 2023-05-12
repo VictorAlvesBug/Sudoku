@@ -16,7 +16,7 @@ export default function createConjuntoPosicoes(descricao) {
 
   conjuntoPosicoes.possivelValor = (valor) => {
     return conjuntoPosicoes.posicoes.some((posicao) => {
-      return posicao.possiveisValores.includes(valor);
+      return posicao.ehUmPossivelValor(valor);
     });
   };
 
@@ -37,6 +37,16 @@ export default function createConjuntoPosicoes(descricao) {
       }
     });
 
+    conjuntoPosicoes.retornarPossiveisValores = () => {
+      let lista = [];
+
+      conjuntoPosicoes.posicoes.forEach((posicao) => {
+        lista = lista.concat(posicao.retornarPossiveisValores());
+      });
+
+      return lista;
+    };
+
     // Reune em uma única lista todos os valores possiveis de todas as posições
     // não resolvidas do conjunto.
     /* 
@@ -51,14 +61,7 @@ export default function createConjuntoPosicoes(descricao) {
     Saída: 
     [1, 6, 1, 2, 5, 5, 6]
     */
-    const listaValores = conjuntoPosicoes.posicoes.reduce((acc, posicao) => {
-      if (posicao.estaResolvida()) {
-        return acc;
-      }
-
-      return acc.concat(posicao.possiveisValores);
-    }, []);
-
+    const listaValores = conjuntoPosicoes.retornarPossiveisValores();
     // Agrupa valores, identificando quantas vezes cada um se repete.
     /*
     Ex: 
@@ -104,14 +107,20 @@ export default function createConjuntoPosicoes(descricao) {
     //console.log(conjuntoPosicoes.descricao, listaValoresUnicos)
 
     // Atribui valor único na única posição do conjunto que o considera
-    /*conjuntoPosicoes.posicoes.forEach((posicao) => {
-      const valorUnico = posicao.possiveisValores
-        .find(valor => listaValoresUnicos.includes(valor))
-      if (valorUnico && valorUnico > 0) {
-        console.log(conjuntoPosicoes.descricao, posicao.descricao, listaValoresUnicos)
-        posicao.definirValorUnico(valorUnico);
+    conjuntoPosicoes.posicoes.forEach((posicao) => {
+      if (posicao.estaResolvida()) {
+        return;
       }
-    });*/
+
+      const valorUnico = posicao
+        .retornarPossiveisValores()
+        .find((valor) => listaValoresUnicos.includes(valor));
+      if (valorUnico && valorUnico > 0) {
+        //console.log(conjuntoPosicoes.descricao, posicao.descricao, listaValoresUnicos)
+        posicao.definirValorUnico(valorUnico);
+        //conjuntoPosicoes.limparPosicoes();
+      }
+    });
   };
 
   return conjuntoPosicoes;

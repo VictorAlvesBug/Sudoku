@@ -1,35 +1,58 @@
 export default function createPosicao(iColuna, iLinha, qtdeValores) {
   const posicao = {};
 
-  posicao.descricao = `Posição (${iColuna+1}, ${iLinha+1})`;
+  posicao.descricao = `Posição (${iColuna + 1}, ${iLinha + 1})`;
   posicao.qtdeValores = qtdeValores;
 
-  posicao.possiveisValores = [];
+  let possiveisValores = [];
 
   for (let i = 1; i <= qtdeValores; i++) {
-    posicao.possiveisValores.push(i);
+    possiveisValores.push(i);
   }
 
   posicao.removerPossivelValor = (valorRemover) => {
-    const indiceValorRemover = posicao.possiveisValores.indexOf(valorRemover);
-    if(indiceValorRemover > -1){
-        posicao.possiveisValores.splice(indiceValorRemover, 1);
+    const indiceValorRemover = possiveisValores.indexOf(valorRemover);
+    if (indiceValorRemover > -1) {
+      possiveisValores.splice(indiceValorRemover, 1);
+    }
+
+    if (posicao.estaResolvida()) {
+      console.log(
+        `${
+          posicao.descricao
+        } resolvida com valor "${posicao.retornarValorUnico()}".`
+      );
     }
   };
 
   posicao.estaResolvida = () => {
-    return posicao.possiveisValores.length === 1;
+    return possiveisValores.length === 1;
   };
 
   posicao.retornarValorUnico = () => {
     if (posicao.estaResolvida()) {
-      return posicao.possiveisValores[0];
+      return possiveisValores[0];
     }
-    return alert('Não é possível retornar o valor único de uma posição não resolvida!');
+    return alert(
+      'Não é possível retornar o valor único de uma posição não resolvida!'
+    );
+  };
+
+  posicao.definirValorInicial = (valorUnico) => {
+    possiveisValores = [valorUnico];
   };
 
   posicao.definirValorUnico = (valorUnico) => {
-    posicao.possiveisValores = [valorUnico];
+    console.log(`${posicao.descricao} resolvida com valor "${valorUnico}".`);
+    possiveisValores = [valorUnico];
+  };
+
+  posicao.ehUmPossivelValor = (valor) => {
+    return possiveisValores.includes(valor);
+  };
+
+  posicao.retornarPossiveisValores = () => {
+    return possiveisValores;
   };
 
   return posicao;

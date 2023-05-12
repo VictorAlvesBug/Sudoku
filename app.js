@@ -41,8 +41,8 @@ let strSudokuDificil = `
         `;
 
 //const strSudoku = normalizarStrSudoku(strSudokuFacil);
-const strSudoku = normalizarStrSudoku(strSudokuMedio);
-//const strSudoku = normalizarStrSudoku(strSudokuDificil);
+//const strSudoku = normalizarStrSudoku(strSudokuMedio);
+const strSudoku = normalizarStrSudoku(strSudokuDificil);
 
 const sudoku = createSudoku(strSudoku);
 
@@ -62,9 +62,9 @@ function renderizarSudoku(apenasPosicoesResolvidas = false) {
 
       if (posicao.estaResolvida()) {
         const valorUnico = posicao.retornarValorUnico();
-        strDivPosicao += `<span class="valor-unico">${valorUnico}</span>`;
-      } else if (!apenasPosicoesResolvidas){
-        posicao.possiveisValores.forEach((possivelValor) => {
+        strDivPosicao += `<span class="valor-unico" data-valor="${valorUnico}">${valorUnico}</span>`;
+      } else if (!apenasPosicoesResolvidas) {
+        posicao.retornarPossiveisValores().forEach((possivelValor) => {
           strDivPosicao += `<span class="opcao" data-valor="${possivelValor}">${possivelValor}</span>`;
         }, '');
       }
@@ -76,6 +76,8 @@ function renderizarSudoku(apenasPosicoesResolvidas = false) {
 
     divSudoku.innerHTML += strDivLinha;
   }
+
+  recarregarEventos();
 }
 
 btnProcessar.addEventListener('click', () => {
@@ -85,3 +87,24 @@ btnProcessar.addEventListener('click', () => {
     alert('Sudoku resolvido com sucesso!');
   }
 });
+
+function recarregarEventos() {
+  document.addEventListener('mouseover', ({ target: spanValorUnico }) => {
+    if (spanValorUnico.classList.contains('posicao')) {
+      spanValorUnico = spanValorUnico.querySelector('.valor-unico');
+    }
+
+    const valor = spanValorUnico?.classList.contains('valor-unico') ? spanValorUnico.dataset.valor : 0;
+
+    divSudoku.querySelectorAll('.posicao').forEach((divPosicao) => {
+      const divMesmoValorUnico = divPosicao.querySelector(
+        `.valor-unico[data-valor="${valor}"]`
+      );
+      if (divMesmoValorUnico) {
+        divPosicao.classList.add('hover');
+      } else {
+        divPosicao.classList.remove('hover');
+      }
+    });
+  });
+}
